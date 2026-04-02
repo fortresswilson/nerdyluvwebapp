@@ -59,3 +59,33 @@ function printFooter() {
 </html>
     <?php
 }
+
+# Reads all singles from singles2.txt and returns an array of associative
+# arrays. Each record has keys:
+#   name, gender, age, type, os, min_age, max_age, seek
+# Returns an empty array if the file cannot be read.
+function readSingles() {
+    global $SINGLES_FILE;
+    $singles = [];
+    $lines = file($SINGLES_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if (!$lines) {
+        return $singles;
+    }
+    foreach ($lines as $line) {
+        $parts = explode(",", $line);
+        if (count($parts) < 8) {
+            continue;
+        }
+        $singles[] = [
+            "name"    => trim($parts[0]),
+            "gender"  => trim($parts[1]),
+            "age"     => (int) trim($parts[2]),
+            "type"    => trim($parts[3]),
+            "os"      => trim($parts[4]),
+            "min_age" => (int) trim($parts[5]),
+            "max_age" => (int) trim($parts[6]),
+            "seek"    => trim($parts[7]),  // M, F, or MF
+        ];
+    }
+    return $singles;
+}
