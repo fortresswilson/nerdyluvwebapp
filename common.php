@@ -138,9 +138,23 @@ function isMatch($a, $b) {
 
     return true;
 }
-?>
+# Extra #1: Returns the URL of the photo to display for a given person name.
+# Converts the name to a filename: lowercase, spaces replaced with dashes.
+# e.g. "Lara Croft" -> "lara-croft.jpg"
+# First checks if images/<filename> exists on the server (for newly signed-up
+# users who upload their own photo). Falls back to the professor's images folder.
+function getPhotoUrl($name) {
+    global $ASSETS;
+    $filename  = strtolower(str_replace(" ", "-", $name)) . ".jpg";
+    $localPath = "images/" . $filename;
 
-<?php
+    if (file_exists($localPath)) {
+        return $localPath;
+    }
+    return $ASSETS . "/images/" . $filename;
+}
+
+
 # Outputs the HTML block for a single match result.
 # Displays the user.jpg image, the person's name, and an unordered list
 # with their gender, age, personality type, and OS — styled with the
