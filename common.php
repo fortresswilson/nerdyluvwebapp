@@ -89,3 +89,53 @@ function readSingles() {
     }
     return $singles;
 }
+
+ #Returns true if person A and person B are a match.
+# Match criteria (all four must be true):
+#   1. Opposite gender
+#   2. Compatible ages: A's age is within B's min/max AND B's age is within A's min/max
+#   3. Same favorite OS
+#   4. At least one personality type letter matches at the same index
+# Also checks the extra CSE feature: each person's "seek" field must include
+# the other person's gender.
+function isMatch($a, $b) {
+    # 1. Each person's seek field must include the other's gender (CSE extra version).
+    #    This replaces the simple "opposite gender" rule and allows same-sex matches
+    #    when both parties have seek = "MF".
+    if (strpos($a["seek"], $b["gender"]) === false) {
+        return false;
+    }
+    if (strpos($b["seek"], $a["gender"]) === false) {
+        return false;
+    }
+
+    # 2. Compatible ages (mutual)
+    if ($a["age"] < $b["min_age"] || $a["age"] > $b["max_age"]) {
+        return false;
+    }
+    if ($b["age"] < $a["min_age"] || $b["age"] > $a["max_age"]) {
+        return false;
+    }
+
+    # 3. Same favorite OS
+    if ($a["os"] !== $b["os"]) {
+        return false;
+    }
+
+    # 4. At least one personality letter matches at the same index
+    $typeA = $a["type"];
+    $typeB = $b["type"];
+    $matched = false;
+    for ($i = 0; $i < min(strlen($typeA), strlen($typeB)); $i++) {
+        if ($typeA[$i] === $typeB[$i]) {
+            $matched = true;
+            break;
+        }
+    }
+    if (!$matched) {
+        return false;
+    }
+
+    return true;
+}
+?>
