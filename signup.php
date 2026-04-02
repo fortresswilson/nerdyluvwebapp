@@ -56,6 +56,10 @@ printHeader("NerdLuv - Sign Up");
                 <input type="radio" id="seek_mf" name="seek" value="MF" checked="checked" />
                 <label for="seek_mf">Both</label>
             </p>
+             <p>
+                <label for="photo">Photo:</label>
+                <input type="file" id="photo" name="photo" />
+            </p>
             <p>
                 <input type="submit" value="Sign Up" />
             </p>
