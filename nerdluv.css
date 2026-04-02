@@ -1,0 +1,326 @@
+/* nerdluv.css â€” Warm romantic Â· Sleek minimal */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --rose:       #c0415a;
+    --rose-light: #e8879a;
+    --rose-pale:  #f9e8ec;
+    --gold:       #c9a96e;
+    --gold-light: #f0e0c0;
+    --ivory:      #fdf8f4;
+    --warm-gray:  #8a7a75;
+    --dark:       #2a1f1d;
+    --border:     #ead8d0;
+    --shadow:     rgba(192, 65, 90, 0.08);
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    background: var(--ivory);
+    color: var(--dark);
+    line-height: 1.7;
+    background-image:
+        radial-gradient(ellipse at 10% 0%, rgba(201,169,110,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 90% 100%, rgba(192,65,90,0.07) 0%, transparent 60%);
+}
+
+a { color: var(--rose); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--gold); }
+
+/* â”€â”€ Header: pure CSS text logo â”€â”€ */
+#header {
+    padding: 1.5rem 2.5rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    background: white;
+}
+
+#header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    color: var(--dark);
+    line-height: 1;
+}
+
+#header h1 a {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+#header h1 .luv { color: var(--rose); }
+
+#header h1 sup {
+    font-size: 0.5rem;
+    color: var(--warm-gray);
+    vertical-align: super;
+    letter-spacing: 0.1em;
+}
+
+#header p {
+    font-size: 0.75rem;
+    color: var(--warm-gray);
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+    margin-top: 0.2rem;
+}
+
+/* â”€â”€ Content â”€â”€ */
+#content {
+    max-width: 660px;
+    margin: 2.5rem auto;
+    padding: 0 2rem;
+}
+
+#content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.6rem;
+    position: relative;
+}
+
+#content h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 36px; height: 1px;
+    background: var(--gold);
+}
+
+#content p { margin-bottom: 0.9rem; }
+
+/* Index nav links */
+#content > p > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--dark);
+    padding: 0.65rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: white;
+    transition: all 0.2s;
+    margin-bottom: 0.4rem;
+}
+
+#content > p > a:hover {
+    border-color: var(--rose-light);
+    color: var(--rose);
+    box-shadow: 0 2px 12px var(--shadow);
+    transform: translateY(-1px);
+}
+
+/* â”€â”€ Forms â”€â”€ */
+fieldset {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.8rem 2.2rem;
+    background: white;
+    box-shadow: 0 4px 24px var(--shadow);
+}
+
+legend {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--warm-gray);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0 0.6rem;
+}
+
+fieldset p {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+fieldset p label:first-child {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    min-width: 128px;
+}
+
+input[type="text"], input[type="file"] {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.45rem 0.7rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--dark);
+    background: var(--ivory);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus {
+    border-color: var(--rose-light);
+    box-shadow: 0 0 0 3px rgba(232,135,154,0.15);
+    background: white;
+}
+
+select {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.45rem 2rem 0.45rem 0.7rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--dark);
+    background: var(--ivory);
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+select:focus { border-color: var(--rose-light); }
+
+input[type="radio"] {
+    accent-color: var(--rose);
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    margin-top: 0.4rem;
+    padding: 0.6rem 2rem;
+    background: var(--rose);
+    color: white;
+    border: none;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+
+input[type="submit"]:hover {
+    background: #a8304a;
+    box-shadow: 0 4px 16px rgba(192,65,90,0.3);
+    transform: translateY(-1px);
+}
+
+/* â”€â”€ Match cards â”€â”€ */
+div.match {
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: white;
+    box-shadow: 0 2px 12px var(--shadow);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+div.match:hover {
+    box-shadow: 0 6px 24px rgba(192,65,90,0.12);
+    transform: translateY(-2px);
+}
+
+div.match p { margin: 0; }
+
+p.match-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--rose);
+    margin-bottom: 0.6rem !important;
+    letter-spacing: 0.02em;
+}
+
+div.match ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 1.5rem;
+}
+
+div.match ul li {
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+div.match ul li::before {
+    content: 'Â·';
+    color: var(--gold);
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+/* â”€â”€ Error â”€â”€ */
+p.error {
+    color: var(--rose);
+    font-size: 0.88rem;
+    padding: 0.6rem 1rem;
+    background: var(--rose-pale);
+    border-left: 3px solid var(--rose);
+    margin-bottom: 1rem;
+}
+
+/* â”€â”€ Footer â”€â”€ */
+#footer {
+    max-width: 660px;
+    margin: 3rem auto 2rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--warm-gray);
+    line-height: 1.8;
+}
+
+#footer p { margin-bottom: 0.4rem; }
+
+#footer a {
+    color: var(--warm-gray);
+    transition: color 0.2s;
+}
+
+#footer a:hover { color: var(--rose); }
+
+/* â”€â”€ Logout link â”€â”€ */
+a[href="logout.php"] {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--warm-gray) !important;
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+a[href="logout.php"]:hover {
+    color: var(--rose) !important;
+    border-color: var(--rose-light);
+}
+
+/* â”€â”€ Responsive â”€â”€ */
+@media (max-width: 600px) {
+    #header { padding: 1rem 1.2rem; }
+    #content { padding: 0 1rem; margin: 1.5rem auto; }
+    fieldset { padding: 1.2rem 1rem; }
+    fieldset p { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    fieldset p label:first-child { min-width: unset; }
+}
