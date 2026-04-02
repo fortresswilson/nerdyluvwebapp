@@ -139,3 +139,31 @@ function isMatch($a, $b) {
     return true;
 }
 ?>
+
+<?php
+# Outputs the HTML block for a single match result.
+# Displays the user.jpg image, the person's name, and an unordered list
+# with their gender, age, personality type, and OS — styled with the
+# "match" div class from nerdluv.css.
+function displayMatch($person) {
+    global $ASSETS;
+    $name   = htmlspecialchars($person["name"]);
+    $gender = htmlspecialchars($person["gender"]);
+    $age    = htmlspecialchars($person["age"]);
+    $type   = htmlspecialchars($person["type"]);
+    $os     = htmlspecialchars($person["os"]);
+    ?>
+    <div class="match">
+        <p>
+            <img src="<?= $ASSETS ?>/user.jpg" alt="<?= $name ?>" width="150" />
+            <?= $name ?>
+        </p>
+        <ul>
+            <li>gender: <?= $gender ?></li>
+            <li>age: <?= $age ?></li>
+            <li>type: <?= $type ?></li>
+            <li>OS: <?= $os ?></li>
+        </ul>
+    </div>
+    <?php
+}
