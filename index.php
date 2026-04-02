@@ -11,13 +11,11 @@ printHeader("NerdLuv");
     <h2>Welcome!</h2>
     <p>
         <a href="signup.php">
-            <img src="<?= $ASSETS ?>/signup.gif" alt="sign up icon" />
             Sign up for a new account
         </a>
     </p>
     <p>
         <a href="matches.php">
-            <img src="<?= $ASSETS ?>/heart.gif" alt="heart icon" />
             Check your matches
         </a>
     </p>
