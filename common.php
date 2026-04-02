@@ -30,3 +30,32 @@ function printHeader($title = "NerdLuv") {
     <?php
 }
 
+# Prints the standard NerdLuv page footer, closing </body> and </html>.
+# Includes site blurb, copyright, back link, and W3C badges.
+function printFooter() {
+    global $ASSETS;
+    ?>
+<div id="footer">
+    <p>This page is for single nerds to meet and date each other!
+       Type in your personal information and wait for the nerdly luv to begin!
+       Thank you for using our site.</p>
+    <p>Results and page (C) Copyright NerdLuv Inc.</p>
+    <p>
+        <a href="index.php">
+            <img src="<?= $ASSETS ?>/back.gif" alt="back arrow" />
+            Back to front page
+        </a>
+    </p>
+    <p>
+        <a href="https://validator.w3.org/check/referrer">
+            <img src="<?= $ASSETS ?>/w3c-html.png" alt="Valid HTML5" />
+        </a>
+        <a href="https://jigsaw.w3.org/css-validator/check/referer">
+            <img src="<?= $ASSETS ?>/w3c-css.png" alt="Valid CSS" />
+        </a>
+    </p>
+</div>
+</body>
+</html>
+    <?php
+}
