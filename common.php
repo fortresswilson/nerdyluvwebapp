@@ -1,16 +1,15 @@
 <?php
 # common.php
 # NerdLuv - Shared functions used by all pages.
-# Provides header, footer, and data-reading utilities.
+# Extra features: #2 user photos, #3 LGBT seek-based matching.
 
-# Base URL for professor's provided assets (CSS, images).
-$ASSETS = "https://codd.cs.gsu.edu/~lhenry/WebPro/Assignments/Assign03";
+# Base URL for this site's assets.
+$ASSETS = "https://codd.cs.gsu.edu/~fezeuchenne1/nerdyluvwebapp";
 
 # Path to the singles data file.
 $SINGLES_FILE = "singles2.txt";
 
 # Prints the standard NerdLuv HTML header, opening <body>, and logo.
-# Parameters: $title - the page <title> string.
 function printHeader($title = "NerdLuv") {
     global $ASSETS;
     ?>
@@ -23,47 +22,29 @@ function printHeader($title = "NerdLuv") {
 </head>
 <body>
 <div id="header">
-    <a href="index.php">
-        <img src="<?= $ASSETS ?>/logo.jpg" alt="nerdLuv - where meek geeks meet" />
-    </a>
+    <h1>nerd<span class="luv">Luv</span><sup>tm</sup></h1>
+    <p>where meek geeks meet</p>
 </div>
     <?php
 }
 
 # Prints the standard NerdLuv page footer, closing </body> and </html>.
-# Includes site blurb, copyright, back link, and W3C badges.
 function printFooter() {
-    global $ASSETS;
     ?>
 <div id="footer">
     <p>This page is for single nerds to meet and date each other!
        Type in your personal information and wait for the nerdly luv to begin!
        Thank you for using our site.</p>
     <p>Results and page (C) Copyright NerdLuv Inc.</p>
-    <p>
-        <a href="index.php">
-            <img src="<?= $ASSETS ?>/back.gif" alt="back arrow" />
-            Back to front page
-        </a>
-    </p>
-    <p>
-        <a href="https://validator.w3.org/check/referrer">
-            <img src="<?= $ASSETS ?>/w3c-html.png" alt="Valid HTML5" />
-        </a>
-        <a href="https://jigsaw.w3.org/css-validator/check/referer">
-            <img src="<?= $ASSETS ?>/w3c-css.png" alt="Valid CSS" />
-        </a>
-    </p>
+    <p><a href="index.php">&larr; Back to front page</a></p>
 </div>
 </body>
 </html>
     <?php
 }
 
-# Reads all singles from singles2.txt and returns an array of associative
-# arrays. Each record has keys:
-#   name, gender, age, type, os, min_age, max_age, seek
-# Returns an empty array if the file cannot be read.
+# Reads all singles from singles2.txt and returns an array of associative arrays.
+# Keys: name, gender, age, type, os, min_age, max_age, seek
 function readSingles() {
     global $SINGLES_FILE;
     $singles = [];
@@ -84,47 +65,32 @@ function readSingles() {
             "os"      => trim($parts[4]),
             "min_age" => (int) trim($parts[5]),
             "max_age" => (int) trim($parts[6]),
-            "seek"    => trim($parts[7]),  // M, F, or MF
+            "seek"    => trim($parts[7]),
         ];
     }
     return $singles;
 }
 
- #Returns true if person A and person B are a match.
-# Match criteria (all four must be true):
-#   1. Opposite gender
-#   2. Compatible ages: A's age is within B's min/max AND B's age is within A's min/max
-#   3. Same favorite OS
-#   4. At least one personality type letter matches at the same index
-# Also checks the extra CSE feature: each person's "seek" field must include
-# the other person's gender.
+# Returns true if person A and person B are a match.
+# Extra #3: seek field allows LGBT matches.
 function isMatch($a, $b) {
-    # 1. Each person's seek field must include the other's gender (CSE extra version).
-    #    This replaces the simple "opposite gender" rule and allows same-sex matches
-    #    when both parties have seek = "MF".
     if (strpos($a["seek"], $b["gender"]) === false) {
         return false;
     }
     if (strpos($b["seek"], $a["gender"]) === false) {
         return false;
     }
-
-    # 2. Compatible ages (mutual)
     if ($a["age"] < $b["min_age"] || $a["age"] > $b["max_age"]) {
         return false;
     }
     if ($b["age"] < $a["min_age"] || $b["age"] > $a["max_age"]) {
         return false;
     }
-
-    # 3. Same favorite OS
     if ($a["os"] !== $b["os"]) {
         return false;
     }
-
-    # 4. At least one personality letter matches at the same index
-    $typeA = $a["type"];
-    $typeB = $b["type"];
+    $typeA   = $a["type"];
+    $typeB   = $b["type"];
     $matched = false;
     for ($i = 0; $i < min(strlen($typeA), strlen($typeB)); $i++) {
         if ($typeA[$i] === $typeB[$i]) {
@@ -132,35 +98,22 @@ function isMatch($a, $b) {
             break;
         }
     }
-    if (!$matched) {
-        return false;
-    }
-
-    return true;
+    return $matched;
 }
-# Extra #1: Returns the URL of the photo to display for a given person name.
-# Converts the name to a filename: lowercase, spaces replaced with dashes.
-# e.g. "Lara Croft" -> "lara-croft.jpg"
-# First checks if images/<filename> exists on the server (for newly signed-up
-# users who upload their own photo). Falls back to the professor's images folder.
+
+# Extra #2: Returns photo URL — checks images/ locally first, falls back to user.jpg.
 function getPhotoUrl($name) {
     global $ASSETS;
     $filename  = strtolower(str_replace(" ", "-", $name)) . ".jpg";
     $localPath = "images/" . $filename;
-
     if (file_exists($localPath)) {
-        return $localPath;
+        return $ASSETS . "/images/" . $filename;
     }
-    return $ASSETS . "/images/" . $filename;
+    return $ASSETS . "/user.jpg";
 }
 
-
-# Outputs the HTML block for a single match result.
-# Displays the user.jpg image, the person's name, and an unordered list
-# with their gender, age, personality type, and OS — styled with the
-# "match" div class from nerdluv.css.
+# Outputs one match block: name and details list (no image dependency).
 function displayMatch($person) {
-    global $ASSETS;
     $name   = htmlspecialchars($person["name"]);
     $gender = htmlspecialchars($person["gender"]);
     $age    = htmlspecialchars($person["age"]);
@@ -168,10 +121,7 @@ function displayMatch($person) {
     $os     = htmlspecialchars($person["os"]);
     ?>
     <div class="match">
-        <p>
-            <img src="<?= $ASSETS ?>/user.jpg" alt="<?= $name ?>" width="150" />
-            <?= $name ?>
-        </p>
+        <p class="match-name"><?= $name ?></p>
         <ul>
             <li>gender: <?= $gender ?></li>
             <li>age: <?= $age ?></li>

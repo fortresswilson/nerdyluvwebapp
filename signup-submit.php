@@ -17,7 +17,7 @@ $min_age = $_POST["min_age"];
 $max_age = $_POST["max_age"];
 $seek    = $_POST["seek"];
 
-# Extra #2: Save the uploaded photo to images/ using the name-based filename.
+# Extra #1: Save the uploaded photo to images/ using the name-based filename.
 # Convert name to filename: lowercase, spaces replaced with dashes.
 # e.g. "Jane Smith" -> "images/jane-smith.jpg"
 if (isset($_FILES["photo"]) && $_FILES["photo"]["error"] === UPLOAD_ERR_OK) {
